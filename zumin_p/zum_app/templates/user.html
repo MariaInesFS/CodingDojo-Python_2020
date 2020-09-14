@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add a Prop</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/style_user.css' %}">
+</head>
+<body>
+    <div id="content">
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+    <div id="wrapper">
+        <div id="list">
+            <h2>LIST YOUR PROPERTY</h2>
+            <form action="/new_prop" method="POST" enctype="multipart/form-data" >
+                {% csrf_token %}
+                <h4>Title</h4>
+                <input type="text" name="title" cols="40">
+                <h4>Description</h4>
+                <textarea name="description"  cols="40" rows="10"></textarea>
+                <h4>Price</h4>
+                <input type="number" method="POST" min="1" max="10000000" step="1"  name="price">
+                <h4>Type</h4>
+                <select name="property_type">
+                    <option value="apartment">Apartment</option>
+                    <option value="house">House</option>
+                    <option value="studio">Studio</option>
+                    <option value="office">Office</option>
+                    <option value="warehouse">Warehouse</option>
+                </select>
+                <h4>Bathrooms</h4>
+                <input type="number"  min="0" max="10" name="n_bathrooms">
+                <h4>Bedrooms</h4>
+                <input type="number"  min="0" max="10" name="n_bedrooms">
+                <h4>Address</h4>
+                <input type="text"  name="location">
+                <h4>Upload Image</h4>
+                <input type="file" name="Image" >
+                <input type="submit"  value="Post">
+            </form>
+        </div>
+         <div id="one_prop">
+            <h2>ALL PROPERTIES</h2>
+            {% for one_prop in all_props %}
+            <div class="div_prop">
+                <h3><a href="/one_prop/{{one_prop.id}}">{{one_prop.title}}</a></h3>
+                <h5>$ {{one_prop.price}} CLP </h5>
+                <h5>Location:</h5><p>{{one_prop.location}}</p>
+                <p>{{one_prop.description}}</p>
+                <img src="{{one_prop.prop_image}}" alt="{{one_prop.prop_image}}">
+                <h5>Posted by: <a href="/user/{{one_prop.landlord.id}}">{{one_prop.landlord.first_name}} {{one_prop.landlord.last_name}}</a></h5>
+                {% if request.session.user_id == one_user.id %}
+                <a href="/delete_prop/{{one_prop.id}}">Delete</a>   
+                {% endif %}    
+            </div>
+            {% endfor %}
+         </div>
+        </div>
+        
+
+
+    </div>
+</body>
+</html>

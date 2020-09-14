@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Profile</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/style_user.css' %}">
+</head>
+<body>
+    <div id="content">
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div id="wrapper">
+            <div id="list">
+                    <h3>{{request.session.name}}'s Profile</h3>
+                        <p>Name: {{one_user.first_name}}</p>
+                        <p>Last Name: {{one_user.last_name}}</p>
+                        <p>Email: {{one_user.email}}</p>
+                        {% if request.session.user_id == one_user.id %}
+                        <button><a href="/edit_profile/{{one_user.id}}">Edit</a></button>
+                        {% endif %}
+
+                    </form>
+                    {% if request.session.user_id == one_user.id %}
+                    <form action="landlord_review" method="POST">
+                    {% endif %}
+        ADD A REVIEW ONLY IF YOU ARE A LANDLORD
+                    <h3>Add a Review</h3>
+                        <textarea name="add_review"  cols="30" rows="10"></textarea>
+                    </form>
+            </div>
+            <div id="div_prop">
+                ALL PROPS FROM THAT LANDLORD
+                % for one_prop in all_props %
+                <h2>My Properties</h2>
+                <h3><a href="/one_prop/{{one_prop.id}}">{{one_prop.title}}</a></h3>
+                <h5>$ {{one_prop.price}} CLP </h5>
+                <h5>Location:</h5><p>{{one_prop.location}}</p>
+                <p>{{one_prop.description}}</p>
+                <img src="{{one_prop.prop_image}}" alt="{{one_prop.prop_image}}">
+                <h5>Posted by: <a href="/user/{{one_prop.landlord.id}}">{{one_prop.landlord.first_name}} {{one_prop.landlord.last_name}}</a></h5>
+                <a href="/delete_prop/{{one_prop.id}}">Delete</a>       
+                % endfor %
+            </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>

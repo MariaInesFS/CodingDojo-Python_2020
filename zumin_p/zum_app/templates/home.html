@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+</head>
+<body>
+    <div id="content"> 
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div id="wrapper">
+            {% load static %}
+            <img src="{% static 'images/YP.jpeg' %}" alt="YP">
+            <div class="register">
+                <h3>REGISTER</h3>
+                <ul class="messages">    
+                    {% for message in messages %} 
+                    <li>{{ message }}</li>   
+                    {% endfor %}
+                </ul>
+                <form action="/register" method="POST">
+                    {% csrf_token %}
+                    
+                    <h4>First Name:</h4>
+                    <input type="text" name="first_name">
+                    <h4>Last Name:</h4>
+                    <input type="text" name="last_name">
+                    <h4>Email:</h4>
+                    <input type="email" name="email">
+                    <h4>Password:</h4>
+                    <input type="password" name="password">
+                    <h4>Confirm Password:</h4>
+                    <input type="password" name="confirm_password">
+                    <input type="submit" value="Register">
+                </form>
+            </div>
+
+            <div class="register">
+                <h3>LOGIN</h3>
+                <ul class="messages">    
+                    {% for message in messages %} 
+                    <li>{{ message }}</li>   
+                    {% endfor %}
+                </ul>
+                <form action="/login" method="POST">
+                    {% csrf_token %}
+                    <h4>Email:</h4>
+                    <input type="email" name="email">
+                    <h4>Password:</h4>
+                    <input type="password" name="password">
+                    <input type="submit" value="Login">
+
+                </form>
+            </div>
+
+    </div>
+</div>
+</body>
+</html>

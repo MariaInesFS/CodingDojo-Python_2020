@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/welcome.css' %}">
+</head>
+<body>
+     <div id="content"> 
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div id="wrapper">
+            <h3>Welcome {{request.session.name}}! </h3>
+            <h4>Let's find your perfect property match!</h4> 
+            <div class="subwelcome">   
+                <P>LANDLORD</P> 
+                <button onclick="location.href ='/user/{{one_user.id}}'">LIST A PROPERTY</button> 
+            </div> 
+            <div class="subwelcome">
+                <P>TENANT</P> 
+                <button onclick="location.href ='/tenant/{{one_user.id}}'"> FIND MY NEXT HOME</button>
+            </div>
+        </div>
+        </div>
+    </div>
+
+</body>
+</html>

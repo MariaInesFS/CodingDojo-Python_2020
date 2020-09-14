@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Find a property</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/style_user.css' %}">
+</head>
+<body>
+    <div id="content">
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+        <div id="wrapper">
+            <div id="list">
+                <h2>FIND YOUR NEXT HOME</h2>
+                <form action="/search" method="POST"> 
+                    {% csrf_token %}
+                <p>Search by Location</p>
+                <input type="search" name="location">
+                <input type="submit" name="Submit">
+                </form>
+                {% for element in props %}
+                <ul>
+                    <li>{{element}}</li>
+                </ul>
+                {% endfor %}
+            </div>
+            <div id="one_prop">
+                <h2>ALL PROPERTIES</h2>
+                {% for element in all_props %}
+                    <ul>
+                        <li><a href="/one_prop/{{prop.id}}">{{ element.title}}</a></li>
+                        <h4> $ {{element.price}} CLP</h4>
+                        <h5> Location: {{element.location}}</h5>
+                    </ul>
+                {% endfor %}
+            
+            </div> 
+        </div>
+    </div>
+
+    </div>
+</body>
+</html>

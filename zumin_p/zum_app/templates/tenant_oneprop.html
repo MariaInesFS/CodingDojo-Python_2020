@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tenenant Prop</title>
+    {% load static %}	
+    <link rel="stylesheet" href="{% static 'css/style_user.css' %}">
+</head>
+<body>
+    <div id="content">
+        <div id="header">
+            <h1>Zum-IN</h1>
+            <h4>Your perfect property Match</h4>
+            <img src="/Imagenes/zum-in/LOGO-1.jpg" alt="zum-in">
+            {% load static %}	
+            <img src="{% static 'images/LOGO-1.jpg' %}" />
+            <div class="topnav">
+                <a href="/profile/{{one_user.id}}">{{request.session.name}}</a>⎢
+                <a href="/welcome/{{one_user.id}}">Home</a>⎢
+                <a href="/logout">Logout</a>
+            </div>
+        </div>
+
+    <div class="one_prop">
+            <h4>{{prop.title}}</h4>
+            <h5>$ {{prop.price}} CLP </h5>
+            <p>{{prop.description}}</p>
+            <img src="{{prop.prop_image}}" alt="{{prop.prop_image}}">
+            <h5>Posted by: <a href="/user/{{prop.landlord.id}}">{{prop.landlord.first_name}} {{prop.landlord.last_name}}</a></h5>
+            <button><a href="/apply_prop/{{prop.id}}">Apply!</a></button>
+            <p>Tenant: {{prop.tenant.count}}</p> 
+            <ul>
+                <li>{{request.session.tenant_name}}</li>
+            </ul>
+            { if request.session.user_id == prop.tenant.id }
+            <div class="review">
+                <form action="/review">
+                <h3>Write a Review</h3>
+                <textarea name="tenant_review" cols="30" rows="10"></textarea>
+                </form>
+
+            </div>
+
+
+        </div>       
+    </div>
+</body>
+</html>
